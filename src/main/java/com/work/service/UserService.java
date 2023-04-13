@@ -7,4 +7,6 @@ import java.util.UUID;
 public interface UserService {
 
     UserDto findUserById(UUID userId);
+
+    UserDto registerUser(UserDto userDto);
 }
