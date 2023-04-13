@@ -23,5 +23,6 @@ jobs:
       env:
         IMAGE_NAME: ghcr.io/createandlearn/auth-service/auth
       run: |
+        pwd
         docker build --tag $IMAGE_NAME .
         docker push $IMAGE_NAME
