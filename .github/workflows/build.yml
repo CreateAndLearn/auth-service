@@ -9,6 +9,25 @@ env:
   DOCKER_BUILDKIT: 1
 
 jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check if docker/setup-docker is available
+      run: |
+        curl -s https://api.github.com/repos/docker/setup-docker/actions/workflows/main.yml \
+        | grep "docker/setup-docker@" -o \
+        | head -1 \
+        | sed "s/^/docker/setup-docker@/" \
+        | xargs -I {} echo "Using {}"
+    - name: Set up Docker CLI
+      uses: docker/setup-docker@v1
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        push: true
+        tags: ghcr.io/<your-username>/<your-repo-name>/<your-image-name>:latest
+
   build-and-publish:
     runs-on: ubuntu-latest
     steps:
